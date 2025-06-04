@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Clock, EuroIcon, User, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -31,7 +31,6 @@ interface SelectedDateInfo {
 export default function AppointmentForm({ services, barbers }: { services: ServiceItem[], barbers: BarberItem[] }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
   
   // Selected values state
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
@@ -61,14 +60,13 @@ export default function AppointmentForm({ services, barbers }: { services: Servi
     setValue,
     formState: { errors }
   } = useForm<AppointmentFormData>({
-    resolver: yupResolver(appointmentSchema) as any,
+    resolver: yupResolver(appointmentSchema),
     mode: 'onBlur'
   });
   
   // Form submission handler
   const onSubmit = async (data: AppointmentFormData) => {
     setIsSubmitting(true);
-    setSubmitError(null);
     setSubmitSuccess(false);
 
     try {
@@ -121,11 +119,18 @@ export default function AppointmentForm({ services, barbers }: { services: Servi
 
     } catch (error) {
       console.error('Form submission error:', error);
-      setSubmitError('There was an error submitting the form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
+  
+  // Check if a date is in the past
+  const isPastDate = useCallback((year: number, month: number, day: number) => {
+    if (year < todayYear) return true;
+    if (year === todayYear && month < todayMonth) return true;
+    if (year === todayYear && month === todayMonth && day < todayDate) return true;
+    return false;
+  }, [todayYear, todayMonth, todayDate]);
   
   // Generate calendar days
   useEffect(() => {
@@ -198,15 +203,7 @@ export default function AppointmentForm({ services, barbers }: { services: Servi
     }
     
     setCalendarDays(calendarDaysArray);
-  }, [currentMonth, todayYear, todayMonth, todayDate]);
-  
-  // Check if a date is in the past
-  const isPastDate = (year: number, month: number, day: number) => {
-    if (year < todayYear) return true;
-    if (year === todayYear && month < todayMonth) return true;
-    if (year === todayYear && month === todayMonth && day < todayDate) return true;
-    return false;
-  };
+  }, [currentMonth, todayYear, todayMonth, todayDate, isPastDate]);
   
   // Handler for service selection change
   const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -290,7 +287,8 @@ export default function AppointmentForm({ services, barbers }: { services: Servi
   }
     
   return (
-      <form onSubmit={handleSubmit(onSubmit as any)}>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {/* First row: Service and Barber */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Service Selection */}
@@ -612,5 +610,6 @@ export default function AppointmentForm({ services, barbers }: { services: Servi
           </button>
         </div>
       </form>
+    </div>
   );
 } 

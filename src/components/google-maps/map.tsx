@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker, Libraries } from '@react-google-maps/api';
 
 interface MapProps {
@@ -136,7 +136,6 @@ const GoogleMapComponent = ({
     id: 'google-map-script'
   });
   
-  const [map, setMap] = useState<google.maps.Map | null>(null);
   const [markerIcon, setMarkerIcon] = useState<string>('');
   
   // Set the marker icon when the component mounts
@@ -155,12 +154,12 @@ const GoogleMapComponent = ({
     borderRadius: '0.5rem',
   };
   
-  const onLoad = useCallback((map: google.maps.Map) => {
-    setMap(map);
+  const onLoad = useCallback(() => {
+    // Map is ready to use, but we don't need to store it
   }, []);
   
   const onUnmount = useCallback(() => {
-    setMap(null);
+    // Cleanup if needed
   }, []);
   
   if (loadError) {

@@ -42,7 +42,7 @@ export default function AboutPage() {
               <Award className="h-8 w-8 text-primary" />
             </div>
             <h3 className="font-semibold text-xl mb-3">Quality Service</h3>
-            <p className="text-muted-foreground">We're committed to providing premium haircuts and grooming services that exceed expectations.</p>
+            <p className="text-muted-foreground">We&apos;re committed to providing premium haircuts and grooming services that exceed expectations.</p>
           </div>
           <div className="p-8 bg-accent/5 rounded-xl shadow-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:-translate-y-1 backdrop-blur-sm flex flex-col items-center text-center">
             <div className="bg-primary/10 p-4 rounded-full mb-5">
@@ -56,7 +56,7 @@ export default function AboutPage() {
               <Users className="h-8 w-8 text-primary" />
             </div>
             <h3 className="font-semibold text-xl mb-3">Community Focus</h3>
-            <p className="text-muted-foreground">We're proud to be part of our local community and strive to create a welcoming space for everyone.</p>
+            <p className="text-muted-foreground">We&apos;re proud to be part of our local community and strive to create a welcoming space for everyone.</p>
           </div>
         </div>
       </div>

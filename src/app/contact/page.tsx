@@ -13,7 +13,7 @@ export default function ContactPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h1 className="text-4xl font-bold mb-4 text-center font-heading">Contact Us</h1>
       <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12 font-sans">
-        Have questions or feedback? We'd love to hear from you. Fill out the form below, and we'll get back to you as soon as possible.
+        Have questions or feedback? We&apos;d love to hear from you. Fill out the form below, and we&apos;ll get back to you as soon as possible.
       </p>
       
       <div className="flex py-12 align-center">

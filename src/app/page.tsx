@@ -82,10 +82,10 @@ export default function Home() {
                 Founded in 2010, Zen Razor provides premier barbering services in a relaxed, modern environment. Our skilled team combines traditional techniques with contemporary styles to deliver exceptional grooming experiences.
               </p>
               <p className="text-muted-foreground mb-8 font-sans">
-                At Zen Razor, we believe that a great haircut is more than just a service—it's an experience that leaves you looking and feeling your best.
+                At Zen Razor, we believe that a great haircut is more than just a service—it&apos;s an experience that leaves you looking and feeling your best.
               </p>
               <p className="text-muted-foreground mb-8 font-sans">
-                At Zen Razor, we believe that a great haircut is more than just a service—it's an experience that leaves you looking and feeling your best.
+                At Zen Razor, we believe that a great haircut is more than just a service—it&apos;s an experience that leaves you looking and feeling your best.
               </p>
               <Link 
                 href="/about" 

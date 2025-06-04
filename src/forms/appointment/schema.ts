@@ -9,7 +9,7 @@ export type AppointmentFormData = {
   notes?: string;
 };
 
-export const appointmentSchema = yup.object({
+export const appointmentSchema: yup.ObjectSchema<AppointmentFormData> = yup.object({
   serviceId: yup
     .string()
     .required('Service is required'),

@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import FormInput from '@/components/forms/input';
 import FormTextarea from '@/components/forms/textarea';
 import { contactSchema, ContactFormData } from './schema';
-import { XCircle } from 'lucide-react';
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,7 +52,7 @@ export default function ContactForm() {
     <div className="w-full max-w-2xl mx-auto bg-accent/10 p-6 rounded-lg border border-border">      
       {submitSuccess && (
         <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded">
-          Thank you for your message! We'll get back to you as soon as possible.
+          Thank you for your message! We&apos;ll get back to you as soon as possible.
         </div>
       )}
       
