@@ -1,103 +1,151 @@
+'use client'
+
+import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from "react";
+import ServicesList from "../components/services/list";
+import ServicesSkeleton from "../components/services/skeleton";
+import { useFunctions } from "@/hooks/use-functions";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { data } = useFunctions();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="relative h-[85vh] flex items-center">
+        <div className="absolute inset-0 bg-black/30 z-10"></div>
+        <Image src="/images/home.svg" alt="Hero Image" fill className="object-cover" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-white ml-2 md:ml-20 mt-24 md:mt-48">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-2 font-heading">
+            Zen Razor <br />
+            <span className="text-2xl sm:text-3xl md:text-4xl font-sans">Premium Barbershop</span>
+          </h1>
+
+          <p className="text-lg max-w-xl mb-8 font-sans">
+            Experience the art of traditional barbering with modern style. Quality cuts, hot towel shaves, and premium grooming services.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link 
+              href="/appointments" 
+              className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-sans"
+            >
+              Book an Appointment
+            </Link>
+            <Link 
+              href="/services" 
+              className="inline-flex h-12 items-center justify-center rounded-md bg-white/10 backdrop-blur-sm px-6 py-3 text-base font-medium text-white ring-offset-background transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
+            >
+              View Services
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+      
+      {/* Services Preview */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4 font-heading">Our Services</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto font-sans">
+              From classic cuts to hot towel shaves, our skilled barbers provide a range of premium services to keep you looking your best.
+            </p>
+          </div>
+          
+          <Suspense fallback={<ServicesSkeleton />}>
+            <ServicesList />
+          </Suspense>
+          
+          <div className="text-center mt-12">
+            <Link 
+              href="/services" 
+              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
+            >
+              View All Services
+            </Link>
+          </div>
+        </div>
+      </section>
+      
+      {/* About Preview */}
+      <section className="py-20 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="aspect-square bg-accent rounded-lg relative order-2 md:order-1 overflow-hidden">
+              <Image src="/images/interior.webp" alt="Shop Interior" fill className="object-cover" />
+            </div>
+            <div className="order-1 md:order-2">
+              <h2 className="text-3xl font-bold mb-6 font-heading">About Zen Razor</h2>
+              <p className="text-muted-foreground mb-6 font-sans">
+                Founded in 2010, Zen Razor provides premier barbering services in a relaxed, modern environment. Our skilled team combines traditional techniques with contemporary styles to deliver exceptional grooming experiences.
+              </p>
+              <p className="text-muted-foreground mb-8 font-sans">
+                At Zen Razor, we believe that a great haircut is more than just a service—it's an experience that leaves you looking and feeling your best.
+              </p>
+              <p className="text-muted-foreground mb-8 font-sans">
+                At Zen Razor, we believe that a great haircut is more than just a service—it's an experience that leaves you looking and feeling your best.
+              </p>
+              <Link 
+                href="/about" 
+                className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
+              >
+                Learn More About Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Team Preview */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4 font-heading">Meet Our Team</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto font-sans">
+              Our skilled barbers are dedicated to providing you with the best grooming experience possible.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {data?.barbers.map((barber, index) => (
+              <div key={index} className="text-center">
+                <div className="aspect-square bg-accent rounded-full max-w-[240px] mx-auto mb-4 relative overflow-hidden">
+                  <Image src={barber.image} alt={barber.name} fill className="object-cover" />
+                </div>
+                <h3 className="font-semibold text-lg font-heading">{barber.name}</h3>
+                <p className="text-primary text-sm font-sans">{barber.title}</p>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <Link 
+              href="/team" 
+              className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
+            >
+              View Full Team
+            </Link>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-2 font-heading">Ready for a Fresh Look?</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8 font-sans">
+            Book your appointment today and experience the Zen Razor difference.
+          </p>
+          <Link 
+            href="/appointments" 
+            className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
+            >
+            Book an Appointment
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
