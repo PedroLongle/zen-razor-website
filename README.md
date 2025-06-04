@@ -1,86 +1,236 @@
-# Zen Razor
+# 🌟 Zen Razor - Premium Barbershop Website
 
-A modern web application starter built with Next.js 15, React 19, Tailwind CSS 4, and shadcn/ui.
+A modern, full-featured barbershop website built with Next.js 15, featuring appointment booking, service management, and location services. Perfect for barbershops looking to establish a professional online presence.
 
-## Technologies
+[![Next.js](https://img.shields.io/badge/Next.js-15.3.0-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Firebase](https://img.shields.io/badge/Firebase-11.6.0-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
 
-- **Next.js 15**: The React framework for building full-stack web applications with the App Router.
-- **React 19**: The latest version of the popular JavaScript library for building user interfaces.
-- **Tailwind CSS 4**: A utility-first CSS framework packed with classes for rapid UI development.
-- **shadcn/ui**: Re-usable components built using Radix UI and Tailwind CSS.
-- **TypeScript**: A strongly typed programming language that builds on JavaScript.
-- **Google Maps API**: Integration for location services with customized dark theme.
+## ✨ Features
 
-## Features
+### 🎯 Core Features
+- **Appointment Booking System**: Full-featured appointment scheduling with date/time selection
+- **Service Management**: Display services with descriptions, durations, and pricing
+- **Barber Profiles**: Meet the team section with individual barber profiles
+- **Contact Forms**: Customer inquiries and feedback management
+- **Interactive Maps**: Google Maps integration with custom styling
+- **Responsive Design**: Mobile-first responsive design for all devices
 
-- Modern and responsive UI
-- Dark mode support
-- Type-safe code with TypeScript
-- Optimized for performance
-- Next.js App Router
-- Modern component patterns
-- Interactive maps with custom styling
+### 🛠️ Technical Features
+- **Modern Stack**: Built with Next.js 15 and React 19
+- **Type Safety**: Full TypeScript implementation
+- **Form Validation**: React Hook Form with Yup schema validation
+- **State Management**: Custom hooks for Firebase integration
+- **Performance**: Optimized with Next.js App Router and Turbopack
+- **Dark Theme**: Custom dark mode support with Tailwind CSS
+- **Accessibility**: WCAG compliant components and navigation
 
-## Getting Started
+### 🎨 UI/UX Features
+- **Modern Design**: Clean, professional barbershop aesthetic
+- **Custom Icons**: Lucide React icon library integration
+- **Smooth Animations**: CSS animations with tw-animate-css
+- **Loading States**: Elegant loading components and skeletons
+- **Error Handling**: User-friendly error messages and validation
+
+## 🚀 Technologies
+
+| Category | Technology | Version | Purpose |
+|----------|------------|---------|---------|
+| **Framework** | Next.js | 15.3.0 | React framework with App Router |
+| **Frontend** | React | 19.0.0 | UI library with latest features |
+| **Language** | TypeScript | 5.0 | Type-safe JavaScript |
+| **Styling** | Tailwind CSS | 4.0 | Utility-first CSS framework |
+| **Backend** | Firebase | 11.6.0 | Authentication, database, hosting |
+| **Forms** | React Hook Form | 7.55.0 | Form state management |
+| **Validation** | Yup | 1.6.1 | Schema validation |
+| **Maps** | Google Maps API | 2.20.6 | Location services |
+| **Icons** | Lucide React | 0.487.0 | Modern icon library |
+| **Components** | Custom + CVA | - | Reusable component system |
+
+## 📁 Project Structure
+
+```
+zen-razor/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── layout.tsx          # Root layout with navigation
+│   │   ├── page.tsx            # Homepage with hero section
+│   │   ├── about/              # About us page
+│   │   ├── appointments/       # Appointment booking page
+│   │   ├── contact/            # Contact page
+│   │   ├── team/               # Team members page
+│   │   └── globals.css         # Global styles
+│   ├── components/             # Reusable UI components
+│   │   ├── forms/              # Form input components
+│   │   ├── google-maps/        # Map components
+│   │   ├── services/           # Service-related components
+│   │   ├── navbar.tsx          # Navigation component
+│   │   ├── footer.tsx          # Footer component
+│   │   └── loading.tsx         # Loading states
+│   ├── forms/                  # Form implementations
+│   │   ├── appointment/        # Appointment booking form
+│   │   └── contact/            # Contact form
+│   ├── hooks/                  # Custom React hooks
+│   ├── model/                  # TypeScript interfaces/types
+│   └── utils.ts                # Utility functions
+├── public/                     # Static assets
+│   ├── images/                 # Images and illustrations
+│   └── fonts/                  # Custom fonts
+├── apphosting.yaml             # Firebase App Hosting config
+├── .firebaserc                 # Firebase project config
+└── package.json                # Dependencies and scripts
+```
+
+## 🛠️ Getting Started
 
 ### Prerequisites
 
-- Node.js 18.17.0 or later
-- Google Maps API Key (for maps functionality)
+- **Node.js**: 18.17.0 or later
+- **Google Maps API Key**: For maps functionality
+- **Firebase Project**: For backend services
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+# Google Maps
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+
+# Firebase Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/your-username/zen-razor.git
 cd zen-razor
 
 # Install dependencies
 npm install
-```
 
-### Setting Up Google Maps
-
-1. Get a Google Maps API key from the [Google Cloud Console](https://console.cloud.google.com/)
-2. Enable the Maps JavaScript API and Places API in your project
-3. Create a `.env.local` file in the root directory and add your API key:
-
-```
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
-```
-
-### Development
-
-```bash
-# Start the development server
+# Start development server with Turbopack
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-### Build
+## 🔥 Firebase Setup
+
+### 1. Create Firebase Project
+
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project named "zen-razor"
+3. Enable Firestore Database
+4. Set up authentication (if needed)
+
+### 2. Google Maps Setup
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Enable Maps JavaScript API and Places API
+3. Create an API key and restrict it to your domain
+4. Add the API key to your environment variables
+
+### 3. Deploy to Firebase
 
 ```bash
-# Create a production build
+# Install Firebase CLI
+npm install -g firebase-tools
+
+# Login to Firebase
+firebase login
+
+# Deploy to Firebase App Hosting
+firebase deploy
+```
+
+## 📝 Available Scripts
+
+```bash
+# Development with Turbopack (faster)
+npm run dev
+
+# Build for production
 npm run build
 
-# Start the production server
+# Start production server
 npm start
+
+# Run ESLint
+npm run lint
 ```
 
-## Project Structure
+## 🎨 Customization
 
+### Styling
+- **Colors**: Modify `src/app/globals.css` for custom color schemes
+- **Components**: Update components in `src/components/` directory
+- **Layout**: Customize `src/app/layout.tsx` for different layouts
+
+### Content
+- **Services**: Update service data in the appropriate components
+- **Team**: Modify barber profiles and images
+- **Contact**: Update business information and contact details
+
+### Maps
+- **Styling**: Customize map theme in `src/components/google-maps/map.tsx`
+- **Location**: Update default coordinates and business location
+
+## 🚀 Deployment
+
+### Firebase App Hosting (Recommended)
+```bash
+firebase deploy
 ```
-zen-razor/
-├── src/
-│   ├── app/             # Next.js App Router
-│   │   ├── layout.tsx   # Root layout component
-│   │   └── page.tsx     # Home page component
-│   └── lib/             # Utility functions and shared code
-├── public/              # Static assets
-└── ...                  # Configuration files
+
+### Vercel
+```bash
+npm run build
+# Deploy to Vercel via dashboard or CLI
 ```
 
-## License
+### Other Platforms
+The project supports deployment to any platform that supports Next.js applications.
 
-This project is licensed under the MIT License.
+## 🔧 Performance Optimizations
+
+- **Turbopack**: Lightning-fast development builds
+- **Image Optimization**: Next.js automatic image optimization
+- **Code Splitting**: Automatic route-based code splitting
+- **Static Generation**: Pre-rendered pages for better SEO
+- **TypeScript**: Compile-time error checking
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Next.js Team** - For the amazing React framework
+- **Tailwind CSS** - For the utility-first CSS framework
+- **Firebase** - For backend infrastructure
+- **Google Maps** - For location services
+- **React Hook Form** - For form management
+- **Lucide** - For beautiful icons
+
+---
+
+**Built with ❤️ for the barbering community**
