@@ -42,6 +42,7 @@ export default function Navigation() {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
+    { name: 'Services', path: '/services' },
     { name: 'Our Team', path: '/team' },
     { name: 'Book Appointment', path: '/appointments' },
     { name: 'Contact', path: '/contact' },

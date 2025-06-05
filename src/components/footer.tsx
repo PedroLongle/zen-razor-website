@@ -1,9 +1,12 @@
 'use client'
 
+import { useFunctions } from "@/hooks/use-functions";
 import { Clock10, Phone } from "lucide-react";
 import Image from "next/image";
 
 export default function Footer() {
+  const { data } = useFunctions();
+
   return (
     <footer className="bg-background border-t border-border mt-auto font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -36,9 +39,9 @@ export default function Footer() {
               <h3 className="text-xl font-heading tracking-wider">CONTACT</h3>
             </div>
             <ul className="space-y-2 text-muted-foreground">
-              <li>123 Style Street, Fashion City</li>
-              <li>Phone: (555) 123-4567</li>
-              <li>Email: info@zenrazor.com</li>
+              <li>{data?.location?.address} • {data?.location?.city}, {data?.location?.country}</li>
+              <li>Phone: (+351) 969 999 999</li>
+              <li>Email: info@zenrazor.pt</li>
             </ul>
           </div>
         </div>

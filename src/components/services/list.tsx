@@ -43,7 +43,7 @@ export default function ServicesList() {
           </div>
           <div className="p-6">
             <div className="flex justify-between items-center mb-3">
-              <h2 className="font-semibold text-lg">{service.name}</h2>
+              <h2 className="font-semibold text-xl font-heading">{service.name}</h2>
               <span className="text-primary font-medium">{service.price}€</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">{service.description}</p>

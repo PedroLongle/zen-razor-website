@@ -2,8 +2,12 @@
 
 import AppointmentForm from '../../forms/appointment';
 import { useFunctions } from '@/hooks/use-functions';
+import { useSearchParams } from 'next/navigation';
+
 export default function AppointmentsPage() {
   const { data, error } = useFunctions();
+  const searchParams = useSearchParams();
+  const preselectedServiceId = searchParams.get('service');
 
   if(error?.data) {
     return <div className="text-red-500">Error: {error.data}</div>;
@@ -20,7 +24,11 @@ export default function AppointmentsPage() {
         Select a service, choose your preferred barber, and pick a date and time that works for you.
       </p>
 
-      <AppointmentForm services={data?.services} barbers={data?.barbers} />
+      <AppointmentForm 
+        services={data?.services} 
+        barbers={data?.barbers} 
+        preselectedServiceId={preselectedServiceId}
+      />
     </div>
   );
 } 

@@ -28,7 +28,15 @@ interface SelectedDateInfo {
   formattedString: string;
 }
 
-export default function AppointmentForm({ services, barbers }: { services: ServiceItem[], barbers: BarberItem[] }) {
+export default function AppointmentForm({ 
+  services, 
+  barbers, 
+  preselectedServiceId 
+}: { 
+  services: ServiceItem[], 
+  barbers: BarberItem[], 
+  preselectedServiceId?: string | null 
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   
@@ -204,6 +212,17 @@ export default function AppointmentForm({ services, barbers }: { services: Servi
     
     setCalendarDays(calendarDaysArray);
   }, [currentMonth, todayYear, todayMonth, todayDate, isPastDate]);
+  
+  // Effect to handle preselected service
+  useEffect(() => {
+    if (preselectedServiceId && services.length > 0) {
+      const preselectedService = services.find(service => service.id === preselectedServiceId);
+      if (preselectedService) {
+        setSelectedService(preselectedService);
+        setValue('serviceId', preselectedService.id);
+      }
+    }
+  }, [preselectedServiceId, services, setValue]);
   
   // Handler for service selection change
   const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

@@ -232,5 +232,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Lucide** - For beautiful icons
 
 ---
-
-**Built with ❤️ for the barbering community**
