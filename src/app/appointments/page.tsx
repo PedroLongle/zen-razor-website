@@ -3,8 +3,9 @@
 import AppointmentForm from '../../forms/appointment';
 import { useFunctions } from '@/hooks/use-functions';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function AppointmentsPage() {
+function AppointmentFormWrapper() {
   const { data, error } = useFunctions();
   const searchParams = useSearchParams();
   const preselectedServiceId = searchParams.get('service');
@@ -16,7 +17,17 @@ export default function AppointmentsPage() {
   if(!data) {
     return <div>No data found</div>;
   }
-  
+
+  return (
+    <AppointmentForm 
+      services={data?.services} 
+      barbers={data?.barbers} 
+      preselectedServiceId={preselectedServiceId}
+    />
+  );
+}
+
+export default function AppointmentsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h1 className="text-4xl font-bold mb-4 text-center font-heading">Book an Appointment</h1>
@@ -24,11 +35,9 @@ export default function AppointmentsPage() {
         Select a service, choose your preferred barber, and pick a date and time that works for you.
       </p>
 
-      <AppointmentForm 
-        services={data?.services} 
-        barbers={data?.barbers} 
-        preselectedServiceId={preselectedServiceId}
-      />
+      <Suspense fallback={<div>Loading appointment form...</div>}>
+        <AppointmentFormWrapper />
+      </Suspense>
     </div>
   );
 } 
