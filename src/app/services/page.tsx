@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { Clock, Euro, ArrowRight, Scissors, Users, Star } from "lucide-react";
-import { useFunctions } from "@/hooks/use-functions";
+import { Clock, Euro, ArrowRight, Scissors } from "lucide-react";
+import { useFunctions, PublicInformation } from "@/hooks/use-functions";
+import { ServiceItem } from "@/model/service";
 import ServicesSkeleton from "@/components/services/skeleton";
 
 export default function ServicesPage() {
@@ -56,7 +57,7 @@ export default function ServicesPage() {
 
 // Services Grid Component
 function ServicesGrid({ data, loading, error }: { 
-  data: any; 
+  data: PublicInformation | undefined; 
   loading: { data: boolean }; 
   error: { data: string | null } | undefined;
 }) {
@@ -98,7 +99,7 @@ function ServicesGrid({ data, loading, error }: {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {data.services.map((service: any, index: number) => (
+      {data.services.map((service: ServiceItem, index: number) => (
         <ServiceCard key={service.id} service={service} index={index} />
       ))}
     </div>
@@ -106,7 +107,7 @@ function ServicesGrid({ data, loading, error }: {
 }
 
 // Individual Service Card Component
-function ServiceCard({ service, index }: { service: any; index: number }) {
+function ServiceCard({ service, index }: { service: ServiceItem; index: number }) {
   return (
     <div className="group bg-background border border-border rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       {/* Service Image */}
