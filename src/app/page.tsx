@@ -13,33 +13,36 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[85vh] flex items-center">
-        <div className="absolute inset-0 bg-black/30 z-10"></div>
-        <Image src="/images/home.svg" alt="Hero Image" fill className="object-cover" />
+      <section 
+        className="relative w-full flex items-center bg-[url(/images/home.png)] bg-cover bg-center sm:bg-center md:bg-center lg:bg-center bg-no-repeat h-screen sm:h-screen md:h-[50rem] lg:h-[50rem] xl:h-[50rem]"
+      >
+        <div className="absolute inset-0 bg-black/30"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-white ml-2 md:ml-20 mt-24 md:mt-48">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-2 font-heading">
-            Zen Razor <br />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-sans">Premium Barbershop</span>
-          </h1>
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+          <div className="flex flex-col justify-center py-8 sm:py-12 md:py-20">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-4 font-heading">
+              Zen Razor <br />
+              <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-sans">Premium Barbershop</span>
+            </h1>
 
-          <p className="text-lg max-w-xl mb-8 font-sans">
-            Experience the art of traditional barbering with modern style. Quality cuts, hot towel shaves, and premium grooming services.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link 
-              href="/appointments" 
-              className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-sans"
-            >
-              Book an Appointment
-            </Link>
-            <Link 
-              href="/services" 
-              className="inline-flex h-12 items-center justify-center rounded-md bg-white/10 backdrop-blur-sm px-6 py-3 text-base font-medium text-white ring-offset-background transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
-            >
-              View Services
-            </Link>
+            <p className="text-sm sm:text-base md:text-lg max-w-xl mb-6 sm:mb-8 font-sans leading-relaxed">
+              Experience the art of traditional barbering with modern style. Quality cuts, hot towel shaves, and premium grooming services.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-fit">
+              <Link 
+                href="/appointments" 
+                className="inline-flex h-10 sm:h-12 items-center justify-center rounded-md bg-primary px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-sans"
+              >
+                Book an Appointment
+              </Link>
+              <Link 
+                href="/services" 
+                className="inline-flex h-10 sm:h-12 items-center justify-center rounded-md bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-white ring-offset-background transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
+              >
+                View Services
+              </Link>
+            </div>
           </div>
         </div>
       </section>
