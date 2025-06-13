@@ -6,12 +6,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Clock, EuroIcon, User, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import FormTextarea from '@/components/forms/textarea';
+import PhoneInput from '@/components/forms/phone-input';
 import { Timestamp } from 'firebase/firestore';
 import { AppointmentFormData, appointmentSchema } from './schema';
 import FormInput from '@/components/forms/input';
 import { useFunctions } from '@/hooks/use-functions';
 import { ServiceItem } from '@/model/service';
 import { BarberItem } from '@/model/barber';
+import { useTranslations } from '@/hooks/use-translations';
 
 interface CalendarDay {
   date: number;
@@ -49,6 +51,8 @@ export default function AppointmentForm({
   const [calendarDays, setCalendarDays] = useState<CalendarDay[]>([]);
 
   const { createAppointment } = useFunctions();
+  const t = useTranslations('appointment');
+  const commonT = useTranslations('common');
   
   // Current date info
   const today = new Date();
@@ -299,8 +303,8 @@ export default function AppointmentForm({
     return (
       <div className="flex flex-col items-center py-22 gap-6">
         <Image src="/images/illustrations/mail-sent.svg" alt="Appointment Created" width={130} height={130} />
-        <h2 className="text-3xl font-semibold mb-1 font-heading">Appointment Created!</h2>
-        <p className="text-muted-foreground mb-4 text-sm font-sans">Your appointment has been created successfully. <br /> We will contact you shortly to confirm the details.</p>
+        <h2 className="text-3xl font-semibold mb-1 font-heading">{t('appointmentBooked')}</h2>
+        <p className="text-muted-foreground mb-4 text-sm font-sans">{t('thankYou')}</p>
       </div>
     );
   }
@@ -312,8 +316,8 @@ export default function AppointmentForm({
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Service Selection */}
           <div className="flex flex-col h-full">
-            <h2 className="text-2xl font-semibold mb-1 font-heading">Select a Service</h2>
-            <p className="text-muted-foreground mb-4 text-sm font-sans">Select a service to begin</p>
+            <h2 className="text-2xl font-semibold mb-1 font-heading">{t('serviceSelection')}</h2>
+            <p className="text-muted-foreground mb-4 text-sm font-sans">{t('selectService')}</p>
             <div className="relative">
               <select 
                 className={`w-full appearance-none rounded-lg border ${errors.serviceId ? 'border-red-500' : 'border-border'} bg-background p-4 pr-10 text-foreground font-sans focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary cursor-pointer`}
@@ -323,10 +327,10 @@ export default function AppointmentForm({
                   handleServiceChange(e);
                 }}
               >
-                <option value="" disabled>Choose a service...</option>
+                <option value="" disabled>{t('selectService')}...</option>
                 {services.map((service) => (
                   <option key={service.id} value={service.id}>
-                    {service.name} ({service.duration}min - {service.price}€)
+                    {service.name} ({service.duration}{commonT('min')} - {service.price}{commonT('euro')})
                   </option>
                 ))}
               </select>
@@ -341,28 +345,28 @@ export default function AppointmentForm({
             </div>
             
             <div className="mt-6 p-6 bg-accent/10 rounded-lg border border-border font-sans flex-grow">
-              <h3 className="font-medium mb-2">Service Details {selectedService ? `for ${selectedService.name}` : ''}</h3>
-              <p className="text-md text-muted-foreground mb-4">{selectedService ? selectedService.description : 'Select a service to see details'}.</p>
+              <h3 className="font-medium mb-2">{t('serviceSelection')} {selectedService ? `- ${selectedService.name}` : ''}</h3>
+              <p className="text-md text-muted-foreground mb-4">{selectedService ? selectedService.description : t('selectService')}.</p>
               <div className="flex justify-between items-center mt-4">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Clock size={16} className="text-primary" />
-                  <span>Duration:</span>
+                  <span>{t('duration')}:</span>
                 </div>
-                <span className="font-medium font-sans">{selectedService?.duration || '-'} min</span>
+                <span className="font-medium font-sans">{selectedService?.duration || '-'} {commonT('min')}</span>
               </div>
               <div className="flex justify-between items-center mt-3">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <EuroIcon size={16} className="text-primary" />
                   <span>Price:</span>
                 </div>
-                <span className="font-medium">{selectedService?.price || '-'} €</span>
+                <span className="font-medium">{selectedService?.price || '-'} {commonT('euro')}</span>
               </div>
               
               {selectedBarber && (
                 <div className="flex justify-between items-center mt-3 border-t border-border pt-3">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <User size={16} className="text-primary" />
-                    <span>Barber:</span>
+                    <span>{t('selectBarber')}:</span>
                   </div>
                   <span className="font-medium font-sans">{selectedBarber.name}</span>
                 </div>
@@ -372,7 +376,7 @@ export default function AppointmentForm({
                 <div className="flex justify-between items-center mt-3 border-t border-border pt-3">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Calendar size={16} className="text-primary" />
-                    <span>Date:</span>
+                    <span>{t('selectDate')}:</span>
                   </div>
                   <span className="font-medium">{selectedDate.formattedString}{selectedTime && ` at ${selectedTime}h`}</span>
                 </div>
@@ -382,9 +386,9 @@ export default function AppointmentForm({
           
           {/* Barber Selection */}
           <div className={`flex flex-col h-full ${!selectedService ? 'opacity-50' : ''}`}>
-            <h2 className="text-2xl font-semibold mb-1 font-heading">Choose a Barber</h2>
+            <h2 className="text-2xl font-semibold mb-1 font-heading">{t('barberSelection')}</h2>
             <p className="text-muted-foreground mb-4 text-sm font-sans">
-              {selectedService ? 'Select a barber for your appointment' : 'Please select a service first'}
+              {selectedService ? t('selectBarber') : t('selectService')}
             </p>
             <input type="hidden" {...register('barberId')} />
             {errors.barberId && (
@@ -396,15 +400,24 @@ export default function AppointmentForm({
                   key={index}
                   onClick={() => handleBarberSelect(barber)}
                   className={`
-                    relative rounded-lg overflow-hidden cursor-pointer border border-border text-center p-4
-                    ${!selectedService ? 'cursor-not-allowed' : 'hover:border-primary'}
-                    ${selectedBarber?.id === barber.id ? 'border-primary ring-2 ring-primary ring-opacity-50' : ''}
+                    relative rounded-lg overflow-hidden cursor-pointer text-center p-4 transition-all duration-200
+                    ${!selectedService ? 'cursor-not-allowed border-2 border-border' : 'hover:border-primary border-2'}
+                    ${selectedBarber?.id === barber.id ? 'border-primary bg-primary/5' : 'border-border'}
                   `}
                 >
-                  <div className="mb-3 aspect-square bg-accent rounded-full max-w-[120px] mx-auto relative overflow-hidden">
+                  <div className="mb-3 aspect-square bg-accent rounded-full max-w-[120px] max-h-[120px] mx-auto relative overflow-hidden mt-2">
                     <Image src={barber.image} alt={barber.name} fill className="object-cover" />
                   </div>
                   <h3 className="font-medium font-sans text-md">{barber.name}</h3>
+                  
+                  {/* Selection indicator */}
+                  {selectedBarber?.id === barber.id && (
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -415,12 +428,12 @@ export default function AppointmentForm({
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Calendar */}
           <div className={`${(!selectedService || !selectedBarber) ? 'opacity-50' : ''}`}>
-            <h2 className="text-2xl font-semibold mb-1 font-heading">Select a Date</h2>
+            <h2 className="text-2xl font-semibold mb-1 font-heading">{t('dateTimeSelection')}</h2>
             <p className="text-muted-foreground mb-4 text-sm font-sans">
-              {(selectedService && selectedBarber) ? 'Choose a date for your appointment' : 'Please select a service and barber first'}
+              {(selectedService && selectedBarber) ? t('selectDate') : t('selectService')}
             </p>
             {!selectedDate && (selectedService && selectedBarber) && isSubmitting && (
-              <p className="mb-2 text-red-500 text-sm">Date is required</p>
+              <p className="mb-2 text-red-500 text-sm">{commonT('required')}</p>
             )}
             
             <div className="calendar bg-background border border-border rounded-lg overflow-hidden">
@@ -490,19 +503,19 @@ export default function AppointmentForm({
           
           {/* Time Selection */}
           <div className={`${(!selectedService || !selectedBarber || !selectedDate) ? 'opacity-50' : ''}`}>
-            <h2 className="text-2xl font-semibold mb-1 font-heading">Select a Time</h2>
+            <h2 className="text-2xl font-semibold mb-1 font-heading">{t('selectTime')}</h2>
             <p className="text-muted-foreground mb-4 text-sm font-sans">
-              {(selectedService && selectedBarber && selectedDate) ? 'Choose a time for your appointment' : 'Please select a date first'}
+              {(selectedService && selectedBarber && selectedDate) ? t('selectTime') : t('selectDate')}
             </p>
             {!selectedTime && (selectedService && selectedBarber && selectedDate) && isSubmitting && (
-              <p className="mb-2 text-red-500 text-sm">Time is required</p>
+              <p className="mb-2 text-red-500 text-sm">{commonT('required')}</p>
             )}
             
             <div className="time-slots space-y-6">
               {/* Morning slots */}
               <div className="border border-border rounded-lg overflow-hidden">
                 <div className="bg-accent/10 p-3 border-b border-border">
-                  <h3 className="font-medium font-sans">Morning</h3>
+                  <h3 className="font-medium font-sans">{t('morningSlots')}</h3>
                 </div>
                 <div className="grid grid-cols-3 gap-2 p-4">
                   {morningTimeSlots.map(time => (
@@ -530,7 +543,7 @@ export default function AppointmentForm({
               {/* Afternoon slots */}
               <div className="border border-border rounded-lg overflow-hidden">
                 <div className="bg-accent/10 p-3 border-b border-border">
-                  <h3 className="font-medium font-sans">Afternoon</h3>
+                  <h3 className="font-medium font-sans">{t('afternoonSlots')}</h3>
                 </div>
                 <div className="grid grid-cols-3 gap-2 p-4">
                   {afternoonTimeSlots.map(time => (
@@ -560,18 +573,18 @@ export default function AppointmentForm({
         
         {/* Customer Information */}
         <div className={`mb-8 ${(!selectedService || !selectedBarber || !selectedDate || !selectedTime) ? 'opacity-50' : ''}`}>
-          <h2 className="text-2xl font-semibold mb-1 font-heading">Your Information</h2>
+          <h2 className="text-2xl font-semibold mb-1 font-heading">{t('customerDetails')}</h2>
           <p className="text-muted-foreground mb-4 text-sm font-sans">
             {(selectedService && selectedBarber && selectedDate && selectedTime) 
-              ? 'Please provide your contact details' 
-              : 'Complete your selection first'
+              ? t('personalInfo') 
+              : t('selectService')
             }
           </p>
           
           <div className="grid md:grid-cols-2 gap-6 p-6 border border-border rounded-lg">
             <FormInput
-              label="Full Name"
-              placeholder="Your name"
+              label={t('customerName')}
+              placeholder={t('namePlaceholder')}
               register={register('customerName')}
               error={errors.customerName}
               required
@@ -579,28 +592,28 @@ export default function AppointmentForm({
             />
             
             <FormInput
-              label="Email Address"
+              label={t('customerEmail')}
               type="email"
-              placeholder="your.email@example.com"
+              placeholder={t('emailPlaceholder')}
               register={register('customerEmail')}
               error={errors.customerEmail}
               required
               disabled={!selectedService || !selectedBarber || !selectedDate || !selectedTime || isSubmitting}
             />
             
-            <FormInput
-              label="Phone Number"
-              type="tel"
-              placeholder="(+351) 123-456-789"
+            <PhoneInput
+              label={t('customerPhone')}
               register={register('customerPhone')}
               error={errors.customerPhone}
+              required
+              defaultCountry="PT"
               disabled={!selectedService || !selectedBarber || !selectedDate || !selectedTime || isSubmitting}
             />
             
             <div className="md:col-span-2">
               <FormTextarea
-                label="Additional Notes"
-                placeholder="Any specific requests or information you'd like us to know..."
+                label={t('additionalNotes')}
+                placeholder={t('notesPlaceholder')}
                 rows={3}
                 register={register('notes')}
                 error={errors.notes}
@@ -623,9 +636,9 @@ export default function AppointmentForm({
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Processing...
+                {t('booking')}
               </>
-            ) : 'Confirm Appointment'}
+            ) : t('confirmBooking')}
           </button>
         </div>
       </form>

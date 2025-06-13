@@ -5,6 +5,7 @@ import Navigation from "../components/navbar";
 import Footer from "../components/footer";
 import { FunctionsProvider } from "@/hooks/use-functions";
 import LoadingScreen from "@/components/loading";
+import { LanguageProvider } from "@/contexts/language-context";
 
 import localFont from 'next/font/local'
 
@@ -36,14 +37,16 @@ export default function RootLayout({
       <body
         className={`${rumbleBrave.variable} ${montserrat.variable} antialiased overflow-x-hidden overscroll-none`}
       >
-        <FunctionsProvider>
-            <LoadingScreen />
-            <Navigation />
-            <main className="flex-grow pt-16">
-              {children}
-            </main>
-            <Footer />
-        </FunctionsProvider>
+        <LanguageProvider>
+          <FunctionsProvider>
+              <LoadingScreen />
+              <Navigation />
+              <main className="flex-grow pt-16">
+                {children}
+              </main>
+              <Footer />
+          </FunctionsProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

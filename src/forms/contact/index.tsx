@@ -5,12 +5,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormInput from '@/components/forms/input';
 import FormTextarea from '@/components/forms/textarea';
+import PhoneInput from '@/components/forms/phone-input';
 import { contactSchema, ContactFormData } from './schema';
+import { useTranslations } from '@/hooks/use-translations';
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const t = useTranslations('contact');
 
   const {
     register,
@@ -41,7 +44,7 @@ export default function ContactForm() {
       }, 5000);
     } catch (error) {
       // Handle error
-      setSubmitError('There was an error submitting the form. Please try again.');
+      setSubmitError(t('errorMessage'));
       console.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
@@ -52,7 +55,7 @@ export default function ContactForm() {
     <div className="w-full max-w-2xl mx-auto bg-accent/10 p-6 rounded-lg border border-border">      
       {submitSuccess && (
         <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded">
-          Thank you for your message! We&apos;ll get back to you as soon as possible.
+          {t('successMessage')}
         </div>
       )}
       
@@ -65,42 +68,41 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormInput
-            label="Full Name"
-            placeholder="Your name"
+            label={t('fullName')}
+            placeholder={t('yourName')}
             register={register('name')}
             error={errors.name}
             required
           />
           
           <FormInput
-            label="Email Address"
+            label={t('emailAddress2')}
             type="email"
-            placeholder="your.email@example.com"
+            placeholder={t('yourEmail')}
             register={register('email')}
             error={errors.email}
             required
           />
         </div>
         
-        <FormInput
-          label="Phone Number"
-          type="tel"
-          placeholder="(+351) 123-456-789"
+        <PhoneInput
+          label={t('phone')}
           register={register('phone')}
           error={errors.phone}
+          defaultCountry="PT"
         />
         
         <FormInput
-          label="Subject"
-          placeholder="What is your message about?"
+          label={t('subject')}
+          placeholder={t('subjectPlaceholder')}
           register={register('subject')}
           error={errors.subject}
           required
         />
         
         <FormTextarea
-          label="Message"
-          placeholder="Your message..."
+          label={t('message')}
+          placeholder={t('messagePlaceholder')}
           rows={5}
           register={register('message')}
           error={errors.message}
@@ -120,10 +122,10 @@ export default function ContactForm() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Sending...
+                {t('sending')}
               </>
             ) : (
-              'Send Message'
+              t('sendMessage')
             )}
           </button>
         </div>

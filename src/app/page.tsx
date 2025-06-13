@@ -6,11 +6,14 @@ import { Suspense } from "react";
 import ServicesList from "../components/services/list";
 import ServicesSkeleton from "../components/services/skeleton";
 import { useFunctions } from "@/hooks/use-functions";
+import { useTranslations } from '@/hooks/use-translations';
 
 export default function Home() {
   const { data } = useFunctions();
+  const t = useTranslations();
 
   return (
+    console.log("Data",data),
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section 
@@ -21,12 +24,12 @@ export default function Home() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="flex flex-col justify-center py-8 sm:py-12 md:py-20">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-4 font-heading">
-              Zen Razor <br />
-              <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-sans">Premium Barbershop</span>
+              {t('hero.title')} <br />
+              <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-sans">{t('hero.subtitle')}</span>
             </h1>
 
             <p className="text-sm sm:text-base md:text-lg max-w-xl mb-6 sm:mb-8 font-sans leading-relaxed">
-              Experience the art of traditional barbering with modern style. Quality cuts, hot towel shaves, and premium grooming services.
+              {t('hero.description')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-fit">
@@ -34,13 +37,13 @@ export default function Home() {
                 href="/appointments" 
                 className="inline-flex h-10 sm:h-12 items-center justify-center rounded-md bg-primary px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-sans"
               >
-                Book an Appointment
+                {t('hero.bookAppointment')}
               </Link>
               <Link 
                 href="/services" 
                 className="inline-flex h-10 sm:h-12 items-center justify-center rounded-md bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-white ring-offset-background transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
               >
-                View Services
+                {t('hero.viewServices')}
               </Link>
             </div>
           </div>
@@ -51,14 +54,14 @@ export default function Home() {
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4 font-heading">Our Services</h2>
+            <h2 className="text-3xl font-bold mb-4 font-heading">{t('services.title')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto font-sans">
-              From classic cuts to hot towel shaves, our skilled barbers provide a range of premium services to keep you looking your best.
+              {t('services.description')}
             </p>
           </div>
           
           <Suspense fallback={<ServicesSkeleton />}>
-            <ServicesList />
+            <ServicesList services={data?.services || []} />
           </Suspense>
           
           <div className="text-center mt-12">
@@ -66,7 +69,7 @@ export default function Home() {
               href="/services" 
               className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
             >
-              View All Services
+              {t('services.viewAllServices')}
             </Link>
           </div>
         </div>
@@ -80,21 +83,18 @@ export default function Home() {
               <Image src="/images/interior.webp" alt="Shop Interior" fill className="object-cover" />
             </div>
             <div className="order-1 md:order-2">
-              <h2 className="text-3xl font-bold mb-6 font-heading">About Zen Razor</h2>
+              <h2 className="text-3xl font-bold mb-6 font-heading">{t('about.title')}</h2>
               <p className="text-muted-foreground mb-6 font-sans">
-                Founded in 2010, Zen Razor provides premier barbering services in a relaxed, modern environment. Our skilled team combines traditional techniques with contemporary styles to deliver exceptional grooming experiences.
+                {t('about.description')}
               </p>
               <p className="text-muted-foreground mb-8 font-sans">
-                At Zen Razor, we believe that a great haircut is more than just a service—it&apos;s an experience that leaves you looking and feeling your best.
-              </p>
-              <p className="text-muted-foreground mb-8 font-sans">
-                At Zen Razor, we believe that a great haircut is more than just a service—it&apos;s an experience that leaves you looking and feeling your best.
+                {t('about.experience')}
               </p>
               <Link 
                 href="/about" 
                 className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
               >
-                Learn More About Us
+                {t('about.learnMore')}
               </Link>
             </div>
           </div>
@@ -105,9 +105,9 @@ export default function Home() {
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4 font-heading">Meet Our Team</h2>
+            <h2 className="text-3xl font-bold mb-4 font-heading">{t('team.title')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto font-sans">
-              Our skilled barbers are dedicated to providing you with the best grooming experience possible.
+              {t('team.description')}
             </p>
           </div>
           
@@ -128,7 +128,7 @@ export default function Home() {
               href="/team" 
               className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
             >
-              View Full Team
+              {t('team.viewFullTeam')}
             </Link>
           </div>
         </div>
@@ -137,15 +137,15 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-2 font-heading">Ready for a Fresh Look?</h2>
+          <h2 className="text-3xl font-bold mb-2 font-heading">{t('cta.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-8 font-sans">
-            Book your appointment today and experience the Zen Razor difference.
+            {t('cta.description')}
           </p>
           <Link 
             href="/appointments" 
             className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
             >
-            Book an Appointment
+            {t('hero.bookAppointment')}
           </Link>
         </div>
       </section>

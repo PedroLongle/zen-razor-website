@@ -4,11 +4,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { useTranslations } from '@/hooks/use-translations';
+import LanguageSelector from './language-selector';
 
 export default function Navigation() {
   const pathname = usePathname();
+  const t = useTranslations('navigation');
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const isHomePage = pathname === '/';
   
   // Use useCallback to memoize the scroll handler function
@@ -40,12 +44,12 @@ export default function Navigation() {
   }, [handleScroll, isMobileMenuOpen]);
   
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Services', path: '/services' },
-    { name: 'Our Team', path: '/team' },
-    { name: 'Book Appointment', path: '/appointments' },
-    { name: 'Contact', path: '/contact' },
+    { name: t('home'), path: '/' },
+    { name: t('about'), path: '/about' },
+    { name: t('services'), path: '/services' },
+    { name: t('team'), path: '/team' },
+    { name: t('appointments'), path: '/appointments' },
+    { name: t('contact'), path: '/contact' },
   ];
 
   // Toggle mobile menu
@@ -76,7 +80,8 @@ export default function Navigation() {
               </Link>
             </div>
             
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8 font-sans">
+            {/* Desktop Navigation */}
+            <div className="hidden md:ml-6 md:flex md:items-center md:space-x-8 font-sans">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
@@ -90,9 +95,17 @@ export default function Navigation() {
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Language Selector */}
+              <LanguageSelector />
             </div>
             
-            <div className="flex items-center sm:hidden">
+            <div className="flex items-center md:hidden">
+              {/* Language Selector for mobile */}
+              <div className="mr-2">
+                <LanguageSelector />
+              </div>
+              
               {/* Mobile menu button */}
               <button 
                 onClick={toggleMobileMenu}
@@ -118,7 +131,7 @@ export default function Navigation() {
       
       {/* Mobile menu drawer - separate from main nav to avoid z-index issues */}
       <div 
-        className={`sm:hidden fixed inset-0 z-50 ${
+        className={`md:hidden fixed inset-0 z-50 ${
           isMobileMenuOpen ? 'visible' : 'invisible'
         }`}
       >
@@ -177,7 +190,7 @@ export default function Navigation() {
               <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span>Book by Phone</span>
+              <span>{t('bookByPhone')}</span>
             </a>
           </div>
         </div>

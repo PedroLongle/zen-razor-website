@@ -26,6 +26,7 @@ A modern, full-featured barbershop website built with Next.js 15, featuring appo
 - **Performance**: Optimized with Next.js App Router and Turbopack
 - **Dark Theme**: Custom dark mode support with Tailwind CSS
 - **Accessibility**: WCAG compliant components and navigation
+- **Internationalization**: Multi-language support with next-intl
 
 ### 🎨 UI/UX Features
 - **Modern Design**: Clean, professional barbershop aesthetic
@@ -33,6 +34,140 @@ A modern, full-featured barbershop website built with Next.js 15, featuring appo
 - **Smooth Animations**: CSS animations with tw-animate-css
 - **Loading States**: Elegant loading components and skeletons
 - **Error Handling**: User-friendly error messages and validation
+- **Language Switching**: Dynamic language selector with 5 supported languages
+
+## 🌍 Internationalization
+
+This project includes comprehensive internationalization support using **next-intl**, supporting 5 languages:
+
+### Supported Languages
+- 🇺🇸 **English** (en) - Default
+- 🇵🇹 **Portuguese** (pt)
+- 🇪🇸 **Spanish** (es)
+- 🇫🇷 **French** (fr)
+- 🇩🇪 **German** (de)
+
+### Implementation Details
+
+#### Language Configuration
+The internationalization is configured in `src/i18n/request.ts`:
+
+```typescript
+import {getRequestConfig} from 'next-intl/server';
+
+export const locales = ['en', 'pt', 'es', 'fr', 'de'] as const;
+export type Locale = (typeof locales)[number];
+
+export default getRequestConfig(async () => {
+  const locale = 'en'; // Default locale
+  return {
+    locale,
+    messages: (await import(`../messages/${locale}.json`)).default
+  };
+});
+```
+
+#### Translation Files
+Translation messages are stored in JSON files under `src/messages/`:
+- `src/messages/en.json` - English translations
+- `src/messages/pt.json` - Portuguese translations
+- `src/messages/es.json` - Spanish translations
+- `src/messages/fr.json` - French translations
+- `src/messages/de.json` - German translations
+
+#### Language Context
+The application uses a custom `LanguageProvider` (`src/contexts/language-context.tsx`) that:
+- Manages the current locale state
+- Loads translation messages dynamically
+- Persists language preference in localStorage
+- Provides fallback to English if a locale fails to load
+
+#### Using Translations in Components
+
+**Custom Hook Approach:**
+```typescript
+import { useTranslations } from '@/hooks/use-translations';
+
+function MyComponent() {
+  const t = useTranslations('navigation');
+  
+  return (
+    <nav>
+      <a href="/">{t('home')}</a>
+      <a href="/about">{t('about')}</a>
+      <a href="/services">{t('services')}</a>
+    </nav>
+  );
+}
+```
+
+**With Parameters:**
+```typescript
+const t = useTranslations('footer');
+const currentYear = new Date().getFullYear();
+
+return <p>{t('copyright', { year: currentYear })}</p>;
+```
+
+#### Language Selector Component
+The `LanguageSelector` component (`src/components/language-selector.tsx`) provides:
+- Dropdown interface with country flags
+- Instant language switching
+- Persistent language selection
+- Visual feedback for current language
+
+### Adding New Languages
+
+1. **Add locale to configuration:**
+```typescript
+// src/i18n/request.ts
+export const locales = ['en', 'pt', 'es', 'fr', 'de', 'it'] as const; // Add 'it'
+```
+
+2. **Create translation file:**
+```bash
+# Create new translation file
+cp src/messages/en.json src/messages/it.json
+# Translate all strings in the new file
+```
+
+3. **Update language selector:**
+```typescript
+// src/components/language-selector.tsx
+const languages = [
+  // ... existing languages
+  { code: 'it' as Locale, name: 'Italiano', flag: '🇮🇹' },
+];
+```
+
+### Translation Structure
+Each translation file follows a nested structure:
+
+```json
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services"
+  },
+  "hero": {
+    "title": "Zen Razor",
+    "subtitle": "Premium Barbershop",
+    "description": "Experience the art of traditional barbering..."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong..."
+  }
+}
+```
+
+### Best Practices
+- **Namespace organization**: Group related translations (e.g., `navigation`, `hero`, `services`)
+- **Consistent keys**: Use descriptive, consistent naming for translation keys
+- **Fallback handling**: Always provide English fallbacks for missing translations
+- **Parameter interpolation**: Use `{paramName}` syntax for dynamic content
+- **Context awareness**: Consider cultural context, not just literal translation
 
 ## 🚀 Technologies
 
@@ -48,6 +183,7 @@ A modern, full-featured barbershop website built with Next.js 15, featuring appo
 | **Maps** | Google Maps API | 2.20.6 | Location services |
 | **Icons** | Lucide React | 0.487.0 | Modern icon library |
 | **Components** | Custom + CVA | - | Reusable component system |
+| **Internationalization** | next-intl | Latest | Multi-language support |
 
 ## 📁 Project Structure
 

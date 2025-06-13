@@ -2,14 +2,17 @@
 
 import Image from "next/image";
 import { useFunctions } from "@/hooks/use-functions";
+import { useTranslations } from '@/hooks/use-translations';
+
 export default function TeamPage() {
   const { data } = useFunctions();
+  const t = useTranslations('team');
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-4xl font-bold mb-4 text-center font-heading">Our Team</h1>
+      <h1 className="text-4xl font-bold mb-4 text-center font-heading">{t('pageTitle')}</h1>
       <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12 font-sans">
-        Meet the skilled professionals behind Zen Razor. Our experienced barbers are dedicated to providing exceptional service and helping you achieve your best look.
+        {t('pageDescription')}
       </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -32,7 +35,7 @@ export default function TeamPage() {
               <p className="text-primary text-sm mb-3 font-sans">{member.title}</p>
               <p className="text-muted-foreground text-sm mb-4 font-sans">{member.bio}</p>
               <div>
-                <h4 className="text-md font-medium mb-2 font-heading">Specialties:</h4>
+                <h4 className="text-md font-medium mb-2 font-heading">{t('specialties')}</h4>
                 <ul className="flex flex-wrap gap-2">
                   {member.specialties?.map((specialty, index) => (
                     <li 

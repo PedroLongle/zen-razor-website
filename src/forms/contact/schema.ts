@@ -21,11 +21,15 @@ export const contactSchema = yup.object({
   
   phone: yup
     .string()
-    .optional()
-    .matches(
-      /^(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/, 
-      'Please enter a valid phone number'
-    ),
+    .test('phone-validation', 'Please enter a valid phone number', function(value) {
+      if (!value) return false;
+      // Remove all non-digit characters except the leading +
+      const cleaned = value.replace(/[^\d+]/g, '');
+      // Check if it's a valid international phone number
+      const phoneRegex = /^\+?\d{7,15}$/;
+      return phoneRegex.test(cleaned);
+    })
+    .optional(),
   
   subject: yup
     .string()

@@ -1,34 +1,30 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
-import { useFunctions } from '@/hooks/use-functions';
+import { useFunctions } from "@/hooks/use-functions";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useTranslations } from '@/hooks/use-translations';
+import { ServiceItem } from "@/model/service";
 
-export default function ServicesList() {
-  const { data, error } = useFunctions();
+interface ServicesListProps {
+  services: ServiceItem[];
+}
 
-  // Display a fallback if there's an error
-  if (error?.data) {
+export default function ServicesList({ services }: ServicesListProps) {
+  const t = useTranslations('services');
+
+  if (!services) {
     return (
-      <div className="text-center p-8 border border-red-200 rounded bg-red-50">
-        <p className="text-red-600">{error.data}</p>
-      </div>
-    );
-  }
-
-  // Display a fallback if no services were found
-  if (!data?.services || data?.services.length === 0) {
-    return (
-      <div className="text-center p-8 border border-border rounded bg-accent/5">
-        <p className="text-muted-foreground">No services available at the moment.</p>
+      <div className="text-center py-8">
+        <p className="text-muted-foreground">No services available.</p>
       </div>
     );
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 font-sans">
-      {data?.services.map((service) => (
+      {services.map((service) => (
         <div 
           key={service.id} 
           className="border border-border rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg"
@@ -51,7 +47,7 @@ export default function ServicesList() {
               href="/appointments" 
               className="text-primary font-medium hover:underline font-sans flex items-center gap-2"
             >
-              Book Now
+              {t('bookNow')}
               <ArrowRight size={16} />
             </Link>
           </div>
