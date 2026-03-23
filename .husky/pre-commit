@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+# Find and add node to PATH
+# Try nvm first
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  # Source nvm and use default node version
+  . "$NVM_DIR/nvm.sh" 2>/dev/null || true
+  # If nvm didn't work, try to find node in nvm versions directory
+  if ! command -v node >/dev/null 2>&1; then
+    # Find the latest or default node version in nvm
+    if [ -d "$NVM_DIR/versions/node" ]; then
+      NODE_VERSION=$(ls -1 "$NVM_DIR/versions/node" | sort -V | tail -1)
+      if [ -n "$NODE_VERSION" ] && [ -d "$NVM_DIR/versions/node/$NODE_VERSION/bin" ]; then
+        export PATH="$NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH"
+      fi
+    fi
+  fi
+fi
+
+# Try to use lint-staged from node_modules/.bin directly
+# lint-staged exits successfully (code 0) even if no files match
+if [ -f "node_modules/.bin/lint-staged" ]; then
+  node_modules/.bin/lint-staged
+else
+  # Fallback to npx if available
+  npx lint-staged
+fi

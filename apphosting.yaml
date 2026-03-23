@@ -26,4 +26,3 @@ env:
     secret: projects/276845534994/secrets/NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
   - variable: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
     secret: projects/276845534994/secrets/NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-

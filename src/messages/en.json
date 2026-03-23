@@ -102,10 +102,7 @@
     "email": "Email: info@zenrazor.pt",
     "copyright": "© {year} • Zen Razor Premium Barbershop • All rights reserved."
   },
-  "cta": {
-    "title": "Ready for a Fresh Look?",
-    "description": "Book your appointment today and experience the Zen Razor difference."
-  },
+  "cta": { "title": "Ready for a Fresh Look?", "description": "Book your appointment today and experience the Zen Razor difference." },
   "appointment": {
     "title": "Book Your Appointment",
     "selectService": "Select Service",
@@ -148,4 +145,4 @@
     "min": "min",
     "euro": "€"
   }
-} 
+}

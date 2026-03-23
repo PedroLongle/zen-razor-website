@@ -1,33 +1,30 @@
-'use client';
+"use client"
 
-import Image from "next/image";
-import { useFunctions } from "@/hooks/use-functions";
-import { useTranslations } from '@/hooks/use-translations';
+import Image from "next/image"
+import { useFunctions } from "@/hooks/use-functions"
+import { useTranslations } from "@/hooks/use-translations"
 
 export default function TeamPage() {
-  const { data } = useFunctions();
-  const t = useTranslations('team');
+  const { data } = useFunctions()
+  const t = useTranslations("team")
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-4xl font-bold mb-4 text-center font-heading">{t('pageTitle')}</h1>
-      <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12 font-sans">
-        {t('pageDescription')}
-      </p>
-      
+      <h1 className="text-4xl font-bold mb-4 text-center font-heading">{t("pageTitle")}</h1>
+      <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12 font-sans">{t("pageDescription")}</p>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {data?.barbers.map((member) => (
-          <div 
-            key={member.id} 
-            className="border border-border rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-primary hover:scale-[1.02]"
-          >
+          <div
+            key={member.id}
+            className="border border-border rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-primary hover:scale-[1.02]">
             <div className="aspect-square bg-accent relative">
-              <Image 
-                src={member.image} 
-                alt={member.name} 
-                fill 
+              <Image
+                src={member.image}
+                alt={member.name}
+                fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                className="object-cover" 
+                className="object-cover"
               />
             </div>
             <div className="p-6">
@@ -35,13 +32,12 @@ export default function TeamPage() {
               <p className="text-primary text-sm mb-3 font-sans">{member.title}</p>
               <p className="text-muted-foreground text-sm mb-4 font-sans">{member.bio}</p>
               <div>
-                <h4 className="text-md font-medium mb-2 font-heading">{t('specialties')}</h4>
+                <h4 className="text-md font-medium mb-2 font-heading">{t("specialties")}</h4>
                 <ul className="flex flex-wrap gap-2">
                   {member.specialties?.map((specialty, index) => (
-                    <li 
+                    <li
                       key={index}
-                      className="bg-muted text-xs px-2 py-1 rounded-full transition-colors duration-300 hover:bg-primary hover:text-primary-foreground font-sans"
-                    >
+                      className="bg-muted text-xs px-2 py-1 rounded-full transition-colors duration-300 hover:bg-primary hover:text-primary-foreground font-sans">
                       {specialty}
                     </li>
                   ))}
@@ -52,5 +48,5 @@ export default function TeamPage() {
         ))}
       </div>
     </div>
-  );
-} 
+  )
+}

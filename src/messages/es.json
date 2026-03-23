@@ -102,10 +102,7 @@
     "email": "Email: info@zenrazor.pt",
     "copyright": "© {year} • Zen Razor Barbería Premium • Todos los derechos reservados."
   },
-  "cta": {
-    "title": "¿Listo para un Look Renovado?",
-    "description": "Reserva tu cita hoy y experimenta la diferencia Zen Razor."
-  },
+  "cta": { "title": "¿Listo para un Look Renovado?", "description": "Reserva tu cita hoy y experimenta la diferencia Zen Razor." },
   "appointment": {
     "title": "Reserva Tu Cita",
     "selectService": "Seleccionar Servicio",
@@ -148,4 +145,4 @@
     "min": "min",
     "euro": "€"
   }
-} 
+}

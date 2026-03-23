@@ -11,6 +11,7 @@ A modern, full-featured barbershop website built with Next.js 15, featuring appo
 ## ✨ Features
 
 ### 🎯 Core Features
+
 - **Appointment Booking System**: Full-featured appointment scheduling with date/time selection
 - **Service Management**: Display services with descriptions, durations, and pricing
 - **Barber Profiles**: Meet the team section with individual barber profiles
@@ -19,6 +20,7 @@ A modern, full-featured barbershop website built with Next.js 15, featuring appo
 - **Responsive Design**: Mobile-first responsive design for all devices
 
 ### 🛠️ Technical Features
+
 - **Modern Stack**: Built with Next.js 15 and React 19
 - **Type Safety**: Full TypeScript implementation
 - **Form Validation**: React Hook Form with Yup schema validation
@@ -29,6 +31,7 @@ A modern, full-featured barbershop website built with Next.js 15, featuring appo
 - **Internationalization**: Multi-language support with next-intl
 
 ### 🎨 UI/UX Features
+
 - **Modern Design**: Clean, professional barbershop aesthetic
 - **Custom Icons**: Lucide React icon library integration
 - **Smooth Animations**: CSS animations with tw-animate-css
@@ -41,6 +44,7 @@ A modern, full-featured barbershop website built with Next.js 15, featuring appo
 This project includes comprehensive internationalization support using **next-intl**, supporting 5 languages:
 
 ### Supported Languages
+
 - 🇺🇸 **English** (en) - Default
 - 🇵🇹 **Portuguese** (pt)
 - 🇪🇸 **Spanish** (es)
@@ -50,25 +54,25 @@ This project includes comprehensive internationalization support using **next-in
 ### Implementation Details
 
 #### Language Configuration
+
 The internationalization is configured in `src/i18n/request.ts`:
 
 ```typescript
-import {getRequestConfig} from 'next-intl/server';
+import { getRequestConfig } from "next-intl/server"
 
-export const locales = ['en', 'pt', 'es', 'fr', 'de'] as const;
-export type Locale = (typeof locales)[number];
+export const locales = ["en", "pt", "es", "fr", "de"] as const
+export type Locale = (typeof locales)[number]
 
 export default getRequestConfig(async () => {
-  const locale = 'en'; // Default locale
-  return {
-    locale,
-    messages: (await import(`../messages/${locale}.json`)).default
-  };
-});
+  const locale = "en" // Default locale
+  return { locale, messages: (await import(`../messages/${locale}.json`)).default }
+})
 ```
 
 #### Translation Files
+
 Translation messages are stored in JSON files under `src/messages/`:
+
 - `src/messages/en.json` - English translations
 - `src/messages/pt.json` - Portuguese translations
 - `src/messages/es.json` - Spanish translations
@@ -76,7 +80,9 @@ Translation messages are stored in JSON files under `src/messages/`:
 - `src/messages/de.json` - German translations
 
 #### Language Context
+
 The application uses a custom `LanguageProvider` (`src/contexts/language-context.tsx`) that:
+
 - Manages the current locale state
 - Loads translation messages dynamically
 - Persists language preference in localStorage
@@ -85,12 +91,13 @@ The application uses a custom `LanguageProvider` (`src/contexts/language-context
 #### Using Translations in Components
 
 **Custom Hook Approach:**
+
 ```typescript
 import { useTranslations } from '@/hooks/use-translations';
 
 function MyComponent() {
   const t = useTranslations('navigation');
-  
+
   return (
     <nav>
       <a href="/">{t('home')}</a>
@@ -102,6 +109,7 @@ function MyComponent() {
 ```
 
 **With Parameters:**
+
 ```typescript
 const t = useTranslations('footer');
 const currentYear = new Date().getFullYear();
@@ -110,7 +118,9 @@ return <p>{t('copyright', { year: currentYear })}</p>;
 ```
 
 #### Language Selector Component
+
 The `LanguageSelector` component (`src/components/language-selector.tsx`) provides:
+
 - Dropdown interface with country flags
 - Instant language switching
 - Persistent language selection
@@ -119,12 +129,14 @@ The `LanguageSelector` component (`src/components/language-selector.tsx`) provid
 ### Adding New Languages
 
 1. **Add locale to configuration:**
+
 ```typescript
 // src/i18n/request.ts
-export const locales = ['en', 'pt', 'es', 'fr', 'de', 'it'] as const; // Add 'it'
+export const locales = ["en", "pt", "es", "fr", "de", "it"] as const // Add 'it'
 ```
 
 2. **Create translation file:**
+
 ```bash
 # Create new translation file
 cp src/messages/en.json src/messages/it.json
@@ -132,37 +144,29 @@ cp src/messages/en.json src/messages/it.json
 ```
 
 3. **Update language selector:**
+
 ```typescript
 // src/components/language-selector.tsx
 const languages = [
   // ... existing languages
-  { code: 'it' as Locale, name: 'Italiano', flag: '🇮🇹' },
-];
+  { code: "it" as Locale, name: "Italiano", flag: "🇮🇹" }
+]
 ```
 
 ### Translation Structure
+
 Each translation file follows a nested structure:
 
 ```json
 {
-  "navigation": {
-    "home": "Home",
-    "about": "About Us",
-    "services": "Services"
-  },
-  "hero": {
-    "title": "Zen Razor",
-    "subtitle": "Premium Barbershop",
-    "description": "Experience the art of traditional barbering..."
-  },
-  "common": {
-    "loading": "Loading...",
-    "error": "Something went wrong..."
-  }
+  "navigation": { "home": "Home", "about": "About Us", "services": "Services" },
+  "hero": { "title": "Zen Razor", "subtitle": "Premium Barbershop", "description": "Experience the art of traditional barbering..." },
+  "common": { "loading": "Loading...", "error": "Something went wrong..." }
 }
 ```
 
 ### Best Practices
+
 - **Namespace organization**: Group related translations (e.g., `navigation`, `hero`, `services`)
 - **Consistent keys**: Use descriptive, consistent naming for translation keys
 - **Fallback handling**: Always provide English fallbacks for missing translations
@@ -171,19 +175,19 @@ Each translation file follows a nested structure:
 
 ## 🚀 Technologies
 
-| Category | Technology | Version | Purpose |
-|----------|------------|---------|---------|
-| **Framework** | Next.js | 15.3.0 | React framework with App Router |
-| **Frontend** | React | 19.0.0 | UI library with latest features |
-| **Language** | TypeScript | 5.0 | Type-safe JavaScript |
-| **Styling** | Tailwind CSS | 4.0 | Utility-first CSS framework |
-| **Backend** | Firebase | 11.6.0 | Authentication, database, hosting |
-| **Forms** | React Hook Form | 7.55.0 | Form state management |
-| **Validation** | Yup | 1.6.1 | Schema validation |
-| **Maps** | Google Maps API | 2.20.6 | Location services |
-| **Icons** | Lucide React | 0.487.0 | Modern icon library |
-| **Components** | Custom + CVA | - | Reusable component system |
-| **Internationalization** | next-intl | Latest | Multi-language support |
+| Category                 | Technology      | Version | Purpose                           |
+| ------------------------ | --------------- | ------- | --------------------------------- |
+| **Framework**            | Next.js         | 15.3.0  | React framework with App Router   |
+| **Frontend**             | React           | 19.0.0  | UI library with latest features   |
+| **Language**             | TypeScript      | 5.0     | Type-safe JavaScript              |
+| **Styling**              | Tailwind CSS    | 4.0     | Utility-first CSS framework       |
+| **Backend**              | Firebase        | 11.6.0  | Authentication, database, hosting |
+| **Forms**                | React Hook Form | 7.55.0  | Form state management             |
+| **Validation**           | Yup             | 1.6.1   | Schema validation                 |
+| **Maps**                 | Google Maps API | 2.20.6  | Location services                 |
+| **Icons**                | Lucide React    | 0.487.0 | Modern icon library               |
+| **Components**           | Custom + CVA    | -       | Reusable component system         |
+| **Internationalization** | next-intl       | Latest  | Multi-language support            |
 
 ## 📁 Project Structure
 
@@ -309,33 +313,39 @@ npm run lint
 ## 🎨 Customization
 
 ### Styling
+
 - **Colors**: Modify `src/app/globals.css` for custom color schemes
 - **Components**: Update components in `src/components/` directory
 - **Layout**: Customize `src/app/layout.tsx` for different layouts
 
 ### Content
+
 - **Services**: Update service data in the appropriate components
 - **Team**: Modify barber profiles and images
 - **Contact**: Update business information and contact details
 
 ### Maps
+
 - **Styling**: Customize map theme in `src/components/google-maps/map.tsx`
 - **Location**: Update default coordinates and business location
 
 ## 🚀 Deployment
 
 ### Firebase App Hosting (Recommended)
+
 ```bash
 firebase deploy
 ```
 
 ### Vercel
+
 ```bash
 npm run build
 # Deploy to Vercel via dashboard or CLI
 ```
 
 ### Other Platforms
+
 The project supports deployment to any platform that supports Next.js applications.
 
 ## 🔧 Performance Optimizations

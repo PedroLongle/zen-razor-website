@@ -102,10 +102,7 @@
     "email": "Email: info@zenrazor.pt",
     "copyright": "© {year} • Zen Razor Barbearia Premium • Todos os direitos reservados."
   },
-  "cta": {
-    "title": "Pronto para um Visual Renovado?",
-    "description": "Marque sua consulta hoje e experimente a diferença Zen Razor."
-  },
+  "cta": { "title": "Pronto para um Visual Renovado?", "description": "Marque sua consulta hoje e experimente a diferença Zen Razor." },
   "appointment": {
     "title": "Marque Sua Consulta",
     "selectService": "Selecionar Serviço",
@@ -148,4 +145,4 @@
     "min": "min",
     "euro": "€"
   }
-} 
+}

@@ -1,11 +1,11 @@
-'use client';
+"use client"
 
-import { useFunctions } from "@/hooks/use-functions";
+import { useFunctions } from "@/hooks/use-functions"
 
 export default function LoadingScreen() {
-  const { loading } = useFunctions();
+  const { loading } = useFunctions()
 
-  if (!loading.data) return null;
+  if (!loading.data) return null
 
   return (
     <div className="fixed inset-0 bg-background z-50 flex items-center justify-center">
@@ -15,5 +15,5 @@ export default function LoadingScreen() {
         <p className="text-muted-foreground">Please wait while we prepare your experience...</p>
       </div>
     </div>
-  );
-} 
+  )
+}
